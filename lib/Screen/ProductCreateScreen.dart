@@ -72,6 +72,16 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                       )
                   ),
                   SizedBox(height: 20),
+                  
+                  Container(
+                    child: ElevatedButton(
+                      style: AppButtonStyle(),
+                      onPressed: (){
+                      
+                    },
+                    child: SuccessButtonChild('submit'),
+                    ),
+                  )
 
 
 
