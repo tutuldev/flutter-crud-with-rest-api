@@ -2,6 +2,7 @@ import 'package:crud_with_rest_rest_api/Style/Style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class ProductCreateScreen extends StatefulWidget {
 
 
@@ -10,6 +11,41 @@ class ProductCreateScreen extends StatefulWidget {
 }
 
 class _ProductCreateScreenState extends State<ProductCreateScreen> {
+
+  Map<String,String>FormValues={
+    "Img":"", "ProductCode":"", "ProductName":"", "Qty":"", "TotalPrice":"", "UnitPrice":""};
+
+  InputOnChange(MapKey, Textvalue){
+    setState(() {
+
+      FormValues.update(MapKey, (value)=>Textvalue);
+    });
+  }
+
+  FormOnSubmit(){
+    if(FormValues['Img']!.length==0){
+      ErrorToast("Image Link Required !");
+    }
+    else if(FormValues['ProductCode']!.length==0){
+      ErrorToast("Product Code Required !");
+    }
+    else if(FormValues['ProductName']!.length==0){
+      ErrorToast("Prodruct Name Required !");
+    }
+    else if(FormValues['Qty']!.length==0){
+      ErrorToast("Product Qty Required !");
+    }
+    else if(FormValues['TotalPrice']!.length==0){
+      ErrorToast("Total Price Required !");
+    }
+    else if(FormValues['UnitPrice']!.length==0){
+      ErrorToast("Unit Price Required !");
+    }
+    else{
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,39 +58,42 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
-                  TextFormField(onChanged: (value){
-                    
-                  },
-                  decoration: AppInputDecoration('Product Name'),),
-                  SizedBox(height: 20),
-                  TextFormField(onChanged: (value){
 
+                  TextFormField(
+                    onChanged: (Textvalue){
+                    InputOnChange("ProductName",Textvalue);
                   },
                     decoration: AppInputDecoration('Product Code'),),
                   SizedBox(height: 20),
-
-                  TextFormField(onChanged: (value){
-
+                  TextFormField(
+                    onChanged: (Textvalue){
+                    InputOnChange("ProductCode",Textvalue);
                   },
                     decoration: AppInputDecoration('Product Image'),),
                   SizedBox(height: 20),
-
-                  TextFormField(onChanged: (value){
-
+                  TextFormField(
+                    onChanged: (Textvalue){
+                    InputOnChange("Img",Textvalue);
                   },
-                    decoration: AppInputDecoration('Unit Price'),),
+                    decoration: AppInputDecoration('Unit Price'),
+                  ),
                   SizedBox(height: 20),
-
-                  TextFormField(onChanged: (value){
-
+                  TextFormField(
+                    onChanged: (Textvalue){
+                    InputOnChange("TotalPrice",Textvalue);
                   },
                     decoration: AppInputDecoration('Total Price'),),
                   SizedBox(height: 20),
 
 
+
+
+
+
                   AppDropDownStyle(
                       DropdownButton(
-                        value: "2 pcs", //default value
+                        // value: "2 pcs", //default value
+                        value: FormValues['Qty'],
                           items: [
                             DropdownMenuItem(child: Text('select Qt'), value: "",),
                             DropdownMenuItem(child: Text('1 pcs'), value: "1 pcs",),
@@ -65,7 +104,9 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
 
                           ],
 
-                          onChanged: (value){
+                          onChanged: (Textvalue){
+                            InputOnChange("Qty",Textvalue);
+
                           },
                         underline: Container(),
                         isExpanded: true,
@@ -77,7 +118,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                     child: ElevatedButton(
                       style: AppButtonStyle(),
                       onPressed: (){
-                      
+                      FormOnSubmit();
                     },
                     child: SuccessButtonChild('submit'),
                     ),
