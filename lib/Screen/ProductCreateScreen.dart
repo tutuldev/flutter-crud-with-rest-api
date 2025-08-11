@@ -1,3 +1,4 @@
+import 'package:crud_with_rest_rest_api/RestAPI/RestClient.dart';
 import 'package:crud_with_rest_rest_api/Style/Style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
     });
   }
 
-  FormOnSubmit(){
+  FormOnSubmit() async{
     if(FormValues['Img']!.length==0){
       ErrorToast("Image Link Required !");
     }
@@ -42,7 +43,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
       ErrorToast("Unit Price Required !");
     }
     else{
-
+      await ProductCreateRequest(FormValues);
     }
   }
 
@@ -63,25 +64,31 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                     onChanged: (Textvalue){
                     InputOnChange("ProductName",Textvalue);
                   },
-                    decoration: AppInputDecoration('Product Code'),),
+                    decoration: AppInputDecoration('Product Name'),),
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue){
                     InputOnChange("ProductCode",Textvalue);
                   },
-                    decoration: AppInputDecoration('Product Image'),),
+                    decoration: AppInputDecoration('Product Code'),),
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue){
                     InputOnChange("Img",Textvalue);
                   },
-                    decoration: AppInputDecoration('Unit Price'),
+                    decoration: AppInputDecoration('Product Image'),
                   ),
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue){
-                    InputOnChange("TotalPrice",Textvalue);
+                    InputOnChange("UnitPrice",Textvalue);
                   },
+                    decoration: AppInputDecoration('Unit Price'),),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    onChanged: (Textvalue){
+                      InputOnChange("TotalPrice",Textvalue);
+                    },
                     decoration: AppInputDecoration('Total Price'),),
                   SizedBox(height: 20),
 
