@@ -16,6 +16,9 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
   Map<String,String>FormValues={
     "Img":"", "ProductCode":"", "ProductName":"", "Qty":"", "TotalPrice":"", "UnitPrice":""};
 
+  bool Loading=false;
+
+
   InputOnChange(MapKey, Textvalue){
     setState(() {
 
@@ -43,7 +46,13 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
       ErrorToast("Unit Price Required !");
     }
     else{
+      setState(() {
+        Loading = true;
+      });
       await ProductCreateRequest(FormValues);
+      setState(() {
+        Loading = false;
+      });
     }
   }
 
@@ -55,34 +64,34 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
         children: [
           ScreenBackground(context),
           Container(
-            child: (SingleChildScrollView(
+            child: Loading?(Center(child: CircularProgressIndicator(),)):( (SingleChildScrollView(
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
 
                   TextFormField(
                     onChanged: (Textvalue){
-                    InputOnChange("ProductName",Textvalue);
-                  },
+                      InputOnChange("ProductName",Textvalue);
+                    },
                     decoration: AppInputDecoration('Product Name'),),
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue){
-                    InputOnChange("ProductCode",Textvalue);
-                  },
+                      InputOnChange("ProductCode",Textvalue);
+                    },
                     decoration: AppInputDecoration('Product Code'),),
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue){
-                    InputOnChange("Img",Textvalue);
-                  },
+                      InputOnChange("Img",Textvalue);
+                    },
                     decoration: AppInputDecoration('Product Image'),
                   ),
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue){
-                    InputOnChange("UnitPrice",Textvalue);
-                  },
+                      InputOnChange("UnitPrice",Textvalue);
+                    },
                     decoration: AppInputDecoration('Unit Price'),),
                   SizedBox(height: 20),
                   TextFormField(
@@ -101,33 +110,33 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                       DropdownButton(
                         // value: "2 pcs", //default value
                         value: FormValues['Qty'],
-                          items: [
-                            DropdownMenuItem(child: Text('select Qt'), value: "",),
-                            DropdownMenuItem(child: Text('1 pcs'), value: "1 pcs",),
-                            DropdownMenuItem(child: Text('2 pcs'), value: "2 pcs",),
-                            DropdownMenuItem(child: Text('3 pcs'), value: "3 pcs",),
-                            DropdownMenuItem(child: Text('4 pcs'), value: "4 pcs",),
-                            DropdownMenuItem(child: Text('5 pcs'), value: "5 pcs",),
+                        items: [
+                          DropdownMenuItem(child: Text('select Qt'), value: "",),
+                          DropdownMenuItem(child: Text('1 pcs'), value: "1 pcs",),
+                          DropdownMenuItem(child: Text('2 pcs'), value: "2 pcs",),
+                          DropdownMenuItem(child: Text('3 pcs'), value: "3 pcs",),
+                          DropdownMenuItem(child: Text('4 pcs'), value: "4 pcs",),
+                          DropdownMenuItem(child: Text('5 pcs'), value: "5 pcs",),
 
-                          ],
+                        ],
 
-                          onChanged: (Textvalue){
-                            InputOnChange("Qty",Textvalue);
+                        onChanged: (Textvalue){
+                          InputOnChange("Qty",Textvalue);
 
-                          },
+                        },
                         underline: Container(),
                         isExpanded: true,
                       )
                   ),
                   SizedBox(height: 20),
-                  
+
                   Container(
                     child: ElevatedButton(
                       style: AppButtonStyle(),
                       onPressed: (){
-                      FormOnSubmit();
-                    },
-                    child: SuccessButtonChild('submit'),
+                        FormOnSubmit();
+                      },
+                      child: SuccessButtonChild('submit'),
                     ),
                   )
 
@@ -136,7 +145,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
 
                 ],
               ),
-            )),
+            )))
           )
         ],
       ),
