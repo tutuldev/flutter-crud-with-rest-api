@@ -23,6 +23,16 @@ void ErrorToast(msg){
   );
 }
 
+SliverGridDelegateWithFixedCrossAxisCount ProductGridViewStyle(){
+
+  return SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    mainAxisSpacing: 2,
+    mainAxisExtent: 250,
+  );
+}
+
+
 void SuccessToast(msg){
   Fluttertoast.showToast(
       msg: msg,
